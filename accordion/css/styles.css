@@ -15,9 +15,51 @@ dl > div {
 
 dt{
   padding: 8px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+dt::before{
+  content: 'Q. ';
+}
+
+dt::after{
+  content: '+';
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  transition: .3s;
+}
+
+/* divにappearクラスが付いた時はdtのafter擬似要素を45度回転 */
+dl > div.appear dt::after {
+  transform: rotate(45deg);
 }
 
 dd{
   padding: 8px;
   margin: 0;
+  display: none;
+}
+
+dd::before{
+  content: 'A. ';
+}
+
+/* dlの直下のdivにappearクラスが付いたら、divの中のddに対して */
+dl > div.appear dd {
+  display: block;
+  animation: .3s fadeIn;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
